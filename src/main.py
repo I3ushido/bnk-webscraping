@@ -4,7 +4,15 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import urllib.request
-import os
+import os, errno
+
+os.chdir("./src")
+
+try:
+    os.makedirs("source_images")
+except OSError as e:
+    if e.errno != errno.EEXIST:
+        raise
 
 r = requests.get("https://www.bnk48.com/index.php?page=members")
 soup = BeautifulSoup(r.text, "lxml")
@@ -23,7 +31,7 @@ for div_tag in div_tags:
         mem_name = div_tag.find("div", {"class": "boxnameMem"})
         info_personal = mem_name.text.split()
         print(info_personal[:], url_image, end="\n")
-        full_filename = os.path.join("./src/source_images", info_personal[0] + ".png")
+        full_filename = os.path.join("./source_images", info_personal[0] + ".png")
         print("foll_filename", info_personal[0])
         urllib.request.urlretrieve(url_image, full_filename)
     except Exception as e:

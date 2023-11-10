@@ -1,6 +1,6 @@
 
 # Ignore the entire folder "source_images"
-source_images/*
+src/source_images/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
